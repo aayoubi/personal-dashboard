@@ -153,6 +153,17 @@ def reword_destination(first_destination, second_destination)
   [first_destination, second_destination]
 end
 
+def ratp_get_line_status(type, id)
+  if type == "bus"
+    return "\u2796" # heavy minus sign
+  end
+  json = get_as_json("#{API_HOME}/traffic/#{type}/#{id}?_format=json")
+  if json['result']['title'] != "Trafic normal"
+    return "\u26A0" # warning sign
+  end
+  return "\u2714" # heavy check mark sign
+end
+
 private def shortcut(text)
   case text
   when "Train a l'approche", "Train à l'approche", "A l'approche" then 'Approche'

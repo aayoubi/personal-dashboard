@@ -61,7 +61,7 @@ SCHEDULER.every '10s', first_in: 0 do
     stop_escaped = stop.tr('()+', '')
     key = "#{ui_type}-#{id}-#{stop_escaped}-#{dir}"
 
-    status = "\u2713"
+    status = ratp_get_line_status(type, id)
 
     results.push(
       key => {
