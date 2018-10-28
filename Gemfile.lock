@@ -19,6 +19,7 @@ GEM
     execjs (2.7.0)
     i18n (1.1.0)
       concurrent-ruby (~> 1.0)
+    mini_magick (4.9.2)
     minitest (5.11.3)
     multi_json (1.13.1)
     mustermann (1.0.3)
@@ -70,8 +71,12 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  mini_magick
   smashing
   xml-simple
 
+RUBY VERSION
+   ruby 2.4.4p296
+
 BUNDLED WITH
-   1.16.4
+   1.17.1

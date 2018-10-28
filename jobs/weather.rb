@@ -1,6 +1,10 @@
+# TODO
+# - add 5-days prediction
+# - add precipatation percentage of the current day in case of rain
 require 'net/http'
 
 # you can find CITY_ID here http://bulk.openweathermap.org/sample/city.list.json.gz
+# Paris, FRANCE == 2988507
 CITY_ID = 2988507
 
 # options: metric / imperial

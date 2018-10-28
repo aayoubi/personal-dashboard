@@ -1,3 +1,9 @@
+# Forked from ChadiEM's original work: https://gist.github.com/ChadiEM/bc4014fa61f08b31f3d42a5e78c49d9b
+# TODO: 
+# x add current stop's station name
+# - add line status to table
+# - add estimated arrival of 3rd bus
+
 require_relative 'ratp_utils'
 
 # Uncomment and define transports below

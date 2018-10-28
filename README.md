@@ -1,1 +1,1 @@
-My personal loft dashboard
+My personal loft dashboard.
