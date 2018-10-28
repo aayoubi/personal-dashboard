@@ -61,13 +61,16 @@ SCHEDULER.every '10s', first_in: 0 do
     stop_escaped = stop.tr('()+', '')
     key = "#{ui_type}-#{id}-#{stop_escaped}-#{dir}"
 
+    status = "\u2713"
+
     results.push(
       key => {
         type: ui_type,
         id: id,
 		stop: stop_name,
         d1: first_destination_parsed, t1: first_time_parsed,
-        d2: second_destination_parsed, t2: second_time_parsed
+        d2: second_destination_parsed, t2: second_time_parsed,
+        status: status
       }
     )
   end

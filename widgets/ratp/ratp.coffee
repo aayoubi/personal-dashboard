@@ -9,6 +9,7 @@ class Dashing.Ratp extends Dashing.Widget
 
       @updateStop(transportId, currentResult.stop)
       @updateDest(transportId, currentResult.d1)
+      @updateStatus(transportId, currentResult.status)
       @updateTime(transportId, currentResult.t1, currentResult.t2)
 
   createRatpTableCell: (tdId, tdClass, spanId) ->
@@ -24,11 +25,18 @@ class Dashing.Ratp extends Dashing.Widget
     cellIdPrefix = transportId + '-' + index 
     return @createRatpTableCell(cellIdPrefix + '-time', 'time', cellIdPrefix + '-time-span')
 
+  renameId: (id) ->
+    if id == 'PC1'
+      return '97'
+    else if id == 'PC3'
+      return '99'
+    return id
+
   createRow: (type, id, transportId) ->
     cellIcon = $ "<td>"
     cellIcon.addClass "transport"
     imgIcon = $ "<img>"
-    imgIcon.attr 'src', 'https://www.ratp.fr/sites/default/files/network/' + type + '/ligne' + @rename(id) + '.svg'
+    imgIcon.attr 'src', 'https://www.ratp.fr/sites/default/files/network/' + type + '/ligne' + @renameId(id) + '.svg'
     imgIcon.addClass type
     imgIcon.addClass 'icon'
     cellIcon.append imgIcon
@@ -38,12 +46,12 @@ class Dashing.Ratp extends Dashing.Widget
     row.append cellIcon
     row.append @createRatpTableCell(transportId + '-stop', 'stop', transportId + '-stop-span')
     row.append @createRatpTableCell(transportId + '-dest', 'dest', transportId + '-dest-span')
+    row.append @createRatpTableCell(transportId + '-status', 'status', transportId + '-status-span')
     row.append @createTimeCell(transportId, 1)
     row.append @createTimeCell(transportId, 2)
     return row
 
   updateDest: (id, newValue) ->
-    ratp = this
     tdId = "##{id}-dest"
     spanId = "##{id}-dest-span"
     oldValue = $(spanId).html()
@@ -53,7 +61,6 @@ class Dashing.Ratp extends Dashing.Widget
         $(this).html(newValue).fadeIn(->
           while (outer = $(tdId)[0]?.offsetWidth) < (scroll = $(tdId)[0]?.scrollWidth) && $(tdId).css('font-size').replace('px','') > 15
             $(tdId).css('font-size','-=0.5')
-
           if outer < scroll
             $(tdId).addClass 'scroll'
           else
@@ -81,7 +88,6 @@ class Dashing.Ratp extends Dashing.Widget
     )
 
   updateStop: (id, newValue) ->
-    ratp = this
     tdId = "##{id}-stop"
     spanId = "##{id}-stop-span"
     oldValue = $(spanId).html()
@@ -98,9 +104,20 @@ class Dashing.Ratp extends Dashing.Widget
         )
       )
 
-  rename: (id) ->
-    if id == 'PC1'
-      return '97'
-    else if id == 'PC3'
-      return '99'
-    return id
+  updateStatus: (id, newValue) ->
+    tdId = "##{id}-status"
+    spanId = "##{id}-status-span"
+    oldValue = $(spanId).html()
+    if oldValue != newValue
+      $(spanId).fadeOut(->
+        $(tdId).css('font-size', '')
+        $(this).html(newValue).fadeIn(->
+          while (outer = $(tdId)[0]?.offsetWidth) < (scroll = $(tdId)[0]?.scrollWidth) && $(tdId).css('font-size').replace('px','') > 15
+            $(tdId).css('font-size','-=0.5')
+          if outer < scroll
+            $(tdId).addClass 'scroll'
+          else
+            $(tdId).removeClass 'scroll'
+        )
+      )
+  
